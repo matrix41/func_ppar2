@@ -21,8 +21,15 @@ sub make_edm {
 
     # Step 0 of 3: Get passed arguments (the hash) from calling program here.  
     # The hash will be passed by value.  
-    my ( %params ) = @_;
+    my ( %inbound_hash ) = @_;
 
+# Test print hash to verify it was passed into subroutine
+    while ( my ( $key, $value ) = each( %inbound_hash ) ) 
+    {
+        print "FUNCPPAR2 $key $value|";
+    }
+
+    die;
 
     # Step 1 of 3: Initialize the hash and tie it (ie to preserve insertion order)
     # note to self: awk '{printf "$hash{%s} = \x27null\x27;\n", $2}' exop_lit_ppar.tbl
@@ -127,7 +134,7 @@ sub make_edm {
 
     # Step 2b of 3: Prompt the user to pick a filename
     print 'Create name of output file: ';
-    my $filename = <STDIN>;
+    my $filename = $
     chomp $filename;
 
 
@@ -189,7 +196,8 @@ sub make_edm {
     # Step 3d of 3: Print header information to screen 
     print   "USER:            raymond\n";
     print   "BUILD:           6.1\n";
-    printf ("DESCRIPTION:     %s\n", $description);
+#   printf ("DESCRIPTION:     %s\n", $description);
+    print   "DESCRIPTION:     blah\n";
     print   "FILETYPE:        edm\n";
     printf ("FILENAME:        %s\n", $filename);
     printf ("DATE:            %04d-%02d-%02d %02d:%02d:%02d\n", $year+1900,$mon+1,$mday,$hour,$min,$sec);
@@ -200,7 +208,8 @@ sub make_edm {
     # Step 3e of 3: Print header information to file 
     print  $fh  "USER:            raymond\n";
     print  $fh  "BUILD:           6.1\n";
-    printf $fh ("DESCRIPTION:     %s\n", $description);
+#   printf $fh ("DESCRIPTION:     %s\n", $description);
+    printf $fh  "DESCRIPTION:     blah\n";
     print  $fh  "FILETYPE:        edm\n";
     printf $fh ("FILENAME:        %s\n", $filename);
     printf $fh ("DATE:            %04d-%02d-%02d %02d:%02d:%02d\n", $year+1900,$mon+1,$mday,$hour,$min,$sec);
