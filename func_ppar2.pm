@@ -19,6 +19,10 @@ sub make_edm {
     my $inputvalue;
     my $value;
 
+    # Step 0 of 3: Get passed arguments (the hash) from calling program here.  
+    # The hash will be passed by value.  
+    my ( %params ) = @_;
+
 
     # Step 1 of 3: Initialize the hash and tie it (ie to preserve insertion order)
     # note to self: awk '{printf "$hash{%s} = \x27null\x27;\n", $2}' exop_lit_ppar.tbl
