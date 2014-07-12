@@ -131,16 +131,13 @@ sub make_edm {
     $hash{plnrefid} = 'null';
 
 
-    # Step 2b of 3: Prompt the user to pick a filename
-    print 'Create name of output file: ';
+    # Step 2b of 3: Build a filename and build a planet name 
     my $filename_a = $inbound_hash{'plnname'};
     my $filename_b = $inbound_hash{'plnletter'};
     my $filename = "$filename_a"."_"."$filename_b.edm";
-    print "$filename\n";
-
-
-    die;
-
+    my $planetname = "$filename_a"." $filename_b";
+    print "\n$filename\n";
+    print "$planetname\n";
 
     my $inbound_key;
     my $inbound_value;
@@ -155,6 +152,13 @@ sub make_edm {
             }
         } # end of inner WHILE-loop 
     } # end of infinite outer WHILE-loop
+
+
+# Sanity check.  Test print hash to verify the matching was done correctly.  
+    while ( my ( $key, $value ) = each( %hash ) ) 
+    {
+        print "WAYPOINT I  $key $value|\n";
+    }
 
     # print 'Enter key and value pair (separated by a space); enter \'quit\' to exit) =>';
     # print "\n";
@@ -212,7 +216,7 @@ sub make_edm {
     print   "USER:            raymond\n";
     print   "BUILD:           6.1\n";
 #   printf ("DESCRIPTION:     %s\n", $description);
-    print   "DESCRIPTION:     blah\n";
+    print   "DESCRIPTION:     Stellar/Planetary Parameters Additions and Updates\n";
     print   "FILETYPE:        edm\n";
     printf ("FILENAME:        %s\n", $filename);
     printf ("DATE:            %04d-%02d-%02d %02d:%02d:%02d\n", $year+1900,$mon+1,$mday,$hour,$min,$sec);
@@ -224,7 +228,7 @@ sub make_edm {
     print  $fh  "USER:            raymond\n";
     print  $fh  "BUILD:           6.1\n";
 #   printf $fh ("DESCRIPTION:     %s\n", $description);
-    printf $fh  "DESCRIPTION:     blah\n";
+    printf $fh  "DESCRIPTION:     Stellar/Planetary Parameters Additions and Updates\n";
     print  $fh  "FILETYPE:        edm\n";
     printf $fh ("FILENAME:        %s\n", $filename);
     printf $fh ("DATE:            %04d-%02d-%02d %02d:%02d:%02d\n", $year+1900,$mon+1,$mday,$hour,$min,$sec);
@@ -263,14 +267,17 @@ sub make_edm {
 
 
     # Step 3g of 3: Now output all the planet parameters 
-    print "EDMT|planet|$objectid|add|";
-    print $fh "EDMT|planet|$objectid|add|";
+    print "EDMT|planet|$planetname|add|";
+    print $fh "EDMT|planet|$planetname|add|";
     while ( my ($key, $value) = each(%hash) ) {
         print "$key $value|";
         print $fh "$key $value|";
     }
     print     "\n"; # need to use this so the command prompt displays correctly 
     print $fh "\n"; # need to use this so the command prompt displays correctly
+
+    die;
+
 
 } # end function make_edm
 
