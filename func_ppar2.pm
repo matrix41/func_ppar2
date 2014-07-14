@@ -23,11 +23,11 @@ sub make_edm {
     # The hash will be passed by value.  
     my ( %inbound_hash ) = @_;
 
-# Test print hash to verify it was passed into subroutine
-    while ( my ( $key, $value ) = each( %inbound_hash ) ) 
-    {
-        print "FUNCPPAR2 $key $value|";
-    }
+# Sanity check.  Test print hash to verify it was passed into subroutine
+    # while ( my ( $key, $value ) = each( %inbound_hash ) ) 
+    # {
+    #     print "FUNCPPAR2 $key $value|";
+    # }
 
 
     # Step 1 of 3: Initialize the hash and tie it (ie to preserve insertion order)
@@ -138,7 +138,7 @@ sub make_edm {
     print "$planetname\n";
 
 
-    # Step 2c of 3: Build a file name
+    # Step 2c of 3: Build a file name (by replacing the space character with an underscore character)
     my $filename_c = $filename_a =~ s/\s+/_/r;
     my $filename = "$filename_c"."_"."$filename_b.edm";
     print "\n$filename\n";
@@ -159,10 +159,10 @@ sub make_edm {
 
 
 # Sanity check.  Test print hash to verify the matching was done correctly.  
-    while ( my ( $key, $value ) = each( %hash ) ) 
-    {
-        print "WAYPOINT I  $key $value|\n";
-    }
+    # while ( my ( $key, $value ) = each( %hash ) ) 
+    # {
+    #     print "WAYPOINT I  $key $value|\n";
+    # }
 
     # print 'Enter key and value pair (separated by a space); enter \'quit\' to exit) =>';
     # print "\n";
@@ -280,7 +280,7 @@ sub make_edm {
     print     "\n"; # need to use this so the command prompt displays correctly 
     print $fh "\n"; # need to use this so the command prompt displays correctly
 
-    die;
+#    die;
 
 
 } # end function make_edm
