@@ -139,7 +139,7 @@ sub make_edm {
 
 
     # Step 2c of 3: Build a file name (by replacing the space character with an underscore character)
-    my $filename_c = $filename_a =~ s/\s+/_/r;
+    my $filename_c = $filename_a =~ s/\s+/_/gr;
     my $filename = "$filename_c"."_"."$filename_b.edm";
     print "\n$filename\n";
 
