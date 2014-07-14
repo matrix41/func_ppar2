@@ -131,13 +131,17 @@ sub make_edm {
     $hash{plnrefid} = 'null';
 
 
-    # Step 2b of 3: Build a filename and build a planet name 
+    # Step 2b of 3: Build a planet name 
     my $filename_a = $inbound_hash{'plnname'};
     my $filename_b = $inbound_hash{'plnletter'};
-    my $filename = "$filename_a"."_"."$filename_b.edm";
     my $planetname = "$filename_a"." $filename_b";
-    print "\n$filename\n";
     print "$planetname\n";
+
+
+    # Step 2c of 3: Build a file name
+    my $filename_c = $filename_a =~ s/\s+/_/r;
+    my $filename = "$filename_c"."_"."$filename_b.edm";
+    print "\n$filename\n";
 
     my $inbound_key;
     my $inbound_value;
