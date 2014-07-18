@@ -131,7 +131,7 @@ sub make_edm {
     $hash{plnrefid} = 'null';
 
 
-    # Step 2b of 3: Build a planet name 
+    # Step 2b of 3: Build a planet name (also using a space character) 
     my $filename_a = $inbound_hash{'plnname'};
     my $filename_b = $inbound_hash{'plnletter'};
     my $planetname = "$filename_a"." $filename_b";
@@ -140,7 +140,7 @@ sub make_edm {
 
     # Step 2c of 3: Build a file name (by replacing the space character with an underscore character)
     my $filename_c = $filename_a =~ s/\s+/_/gr;
-    my $filename = "$filename_c"."_"."$filename_b.edm";
+    my $filename = "$filename_c"."_"."$filename_b.planet";
     print "\n$filename\n";
 
     my $inbound_key;
@@ -211,7 +211,7 @@ sub make_edm {
     # note to self: use sprintf, not printf. otherwise using printf will 
     # return 1 because the 1 is the true return value from printf which 
     # gets assigned to $filename after printf has printed the string. 
-    # my $filename  = sprintf ("ppar_%04d-%02d-%02d-%02d-%02d-%02d.edm", $year+1900,$mon+1,$mday,$hour,$min,$sec);
+    # my $filename  = sprintf ("ppar_%04d-%02d-%02d-%02d-%02d-%02d.planet", $year+1900,$mon+1,$mday,$hour,$min,$sec);
 
     # Step 3c of 3: Create file handle for the output file 
     open (my $fh, '>', $filename) or die "Could not open file '$filename' $!\n";
