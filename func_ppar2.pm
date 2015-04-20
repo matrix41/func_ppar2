@@ -34,6 +34,7 @@ sub make_edm {
     # note to self: awk '{printf "$hash{%s} = \x27null\x27;\n", $2}' exop_lit_ppar.tbl
     tie my %hash, "Tie::IxHash" or die "could not tie %hash";
 
+    $hash{plnletter} = 'null';
     $hash{plnorbper} = 'null';
     $hash{plnorbpererr1} = 'null';
     $hash{plnorbpererr2} = 'null';
@@ -50,6 +51,7 @@ sub make_edm {
     $hash{plnorbtpererr1} = 'null';
     $hash{plnorbtpererr2} = 'null';
     $hash{plnorbtperlim} = 'null';
+    $hash{plntsystemref} = 'null';
     $hash{plnorbeccen} = 'null';
     $hash{plnorbeccenerr1} = 'null';
     $hash{plnorbeccenerr2} = 'null';
@@ -67,27 +69,31 @@ sub make_edm {
     $hash{plnmsinij} = 'null';
     $hash{plnmsinijerr1} = 'null';
     $hash{plnmsinijerr2} = 'null';
+    $hash{plnmsinijlim} = 'null';
     $hash{plnmsinie} = 'null';
     $hash{plnmsinieerr1} = 'null';
     $hash{plnmsinieerr2} = 'null';
-    $hash{plnmsinilim} = 'null';
+    $hash{plnmsinielim} = 'null';
     $hash{plnmassj} = 'null';
     $hash{plnmassjerr1} = 'null';
     $hash{plnmassjerr2} = 'null';
+    $hash{plnmassjlim} = 'null';
     $hash{plnmasse} = 'null';
     $hash{plnmasseerr1} = 'null';
     $hash{plnmasseerr2} = 'null';
-    $hash{plnmasslim} = 'null';
+    $hash{plnmasselim} = 'null';
     $hash{plnradj} = 'null';
     $hash{plnradjerr1} = 'null';
     $hash{plnradjerr2} = 'null';
+    $hash{plnradjlim} = 'null';
     $hash{plnrade} = 'null';
     $hash{plnradeerr1} = 'null';
     $hash{plnradeerr2} = 'null';
+    $hash{plnradelim} = 'null';
     $hash{plnrads} = 'null';
     $hash{plnradserr1} = 'null';
     $hash{plnradserr2} = 'null';
-    $hash{plnradlim} = 'null';
+    $hash{plnradslim} = 'null';
     $hash{plndens} = 'null';
     $hash{plndenserr1} = 'null';
     $hash{plndenserr2} = 'null';
@@ -103,10 +109,11 @@ sub make_edm {
     $hash{plntrandurd} = 'null';
     $hash{plntrandurderr1} = 'null';
     $hash{plntrandurderr2} = 'null';
+    $hash{plntrandurdlim} = 'null';
     $hash{plntrandurh} = 'null';
     $hash{plntrandurherr1} = 'null';
     $hash{plntrandurherr2} = 'null';
-    $hash{plntrandurlim} = 'null';
+    $hash{plntrandurhlim} = 'null';
     $hash{plntranmid} = 'null';
     $hash{plntranmiderr1} = 'null';
     $hash{plntranmiderr2} = 'null';
@@ -127,8 +134,15 @@ sub make_edm {
     $hash{plnratrorerr1} = 'null';
     $hash{plnratrorerr2} = 'null';
     $hash{plnratrorlim} = 'null';
+    $hash{plninsol} = 'null';
+    $hash{plninsolerr1} = 'null';
+    $hash{plninsolerr2} = 'null';
+    $hash{plninsollim} = 'null';
     $hash{plnblend} = 'null';
     $hash{plnrefid} = 'null';
+
+
+
 
 
     # Step 2b of 3: Build a planet name (also using a space character) 
@@ -139,9 +153,12 @@ sub make_edm {
 
 
     # Step 2c of 3: Build a file name (by replacing the space character with an underscore character)
-    my $filename_c = $filename_a =~ s/\s+/_/gr;
-    my $filename = "$filename_c"."_"."$filename_b.planet";
-    print "\n$filename\n";
+#    my $filename_c = $filename_a =~ s/\s+/_/gr; # <--- the original line
+    my $filename_c = $filename_a =~ s/\s+/_/g; # <--- the original line
+
+#    my $filename = "$filename_c"."_"."$filename_b.planet"; # <--- original line 
+    my $filename = "$filename_a"."_"."$filename_b.planet";
+#    print "\n$filename\n";
 
     my $inbound_key;
     my $inbound_value;
@@ -218,9 +235,8 @@ sub make_edm {
 
     # Step 3d of 3: Print header information to screen 
     print   "USER:            raymond\n";
-    print   "BUILD:           6.1\n";
-#   printf ("DESCRIPTION:     %s\n", $description);
-    print   "DESCRIPTION:     Stellar/Planetary Parameters Additions and Updates\n";
+    print   "BUILD:           6.2\n";
+    printf  "DESCRIPTION:     Stellar/Planetary Parameters Additions and Updates\n";
     print   "FILETYPE:        edm\n";
     printf ("FILENAME:        %s\n", $filename);
     printf ("DATE:            %04d-%02d-%02d %02d:%02d:%02d\n", $year+1900,$mon+1,$mday,$hour,$min,$sec);
@@ -230,8 +246,7 @@ sub make_edm {
 
     # Step 3e of 3: Print header information to file 
     print  $fh  "USER:            raymond\n";
-    print  $fh  "BUILD:           6.1\n";
-#   printf $fh ("DESCRIPTION:     %s\n", $description);
+    print  $fh  "BUILD:           6.2\n";
     printf $fh  "DESCRIPTION:     Stellar/Planetary Parameters Additions and Updates\n";
     print  $fh  "FILETYPE:        edm\n";
     printf $fh ("FILENAME:        %s\n", $filename);
@@ -240,39 +255,10 @@ sub make_edm {
     printf $fh  "# Addition of planet parameter values\n";
     printf $fh  "#                                    \n";
 
-    # Step 3f of 3: Special algorithm check.  If certain specific 
-    # parameters are initialized (ie not null), then calculate 
-    # additional values for other related parameters.
-
-    # Special algorithm check 1: Calculate Earth mass if given Jupiter mass
-    # if ( defined $hash_ref->{ lums } && $hash_ref->{ lums } !~ /^null$/ )
-    if ( defined $hash{ plnmsinij } && $hash{ plnmsinij } !~ /^null$/ )
-    {
-        $hash{ plnmsinie }     = sprintf("%.1f", $hash{ plnmsinij }     * 317.816611);
-        $hash{ plnmsinieerr1 } = sprintf("%.1f", $hash{ plnmsinijerr1 } * 317.816611);
-        $hash{ plnmsinieerr2 } = sprintf("%.1f", $hash{ plnmsinijerr2 } * 317.816611);
-    }
-
-    # Special algorithm check 2: Calculate Earth radius if given Jupiter radius
-    if ( defined $hash{ plnradj } && $hash{ plnradj } !~ /^null$/ )
-    {
-        $hash{ plnrade }     = sprintf("%.1f", $hash{ plnradj }         * 11.2089807);
-        $hash{ plnradeerr1 } = sprintf("%.1f", $hash{ plnradjerr1 }     * 11.2089807);
-        $hash{ plnradeerr2 } = sprintf("%.1f", $hash{ plnradjerr2 }     * 11.2089807);
-    }
-
-    # Special algorithm check 3: Calculate Solar radius if given Jupiter radius
-    if ( defined $hash{ plnradj } && $hash{ plnradj } !~ /^null$/ )
-    {
-        $hash{ plnrads }     = sprintf("%.1f", $hash{ plnradj }         * 0.102792236);
-        $hash{ plnradserr1 } = sprintf("%.1f", $hash{ plnradjerr1 }     * 0.102792236);
-        $hash{ plnradserr2 } = sprintf("%.1f", $hash{ plnradjerr2 }     * 0.102792236);
-    }
-
 
     # Step 3g of 3: Now output all the planet parameters 
-    print "EDMT|planet|$planetname|add|";
-    print $fh "EDMT|planet|$planetname|add|";
+    print "EDMT|planet|$planetname|update|";
+    print $fh "EDMT|planet|$planetname|update|";
     while ( my ($key, $value) = each(%hash) ) {
         print "$key $value|";
         print $fh "$key $value|";
