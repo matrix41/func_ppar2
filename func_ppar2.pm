@@ -235,7 +235,7 @@ sub make_edm {
 
     # Step 3d of 3: Print header information to screen 
     print   "USER:            raymond\n";
-    print   "BUILD:           6.2\n";
+    print   "BUILD:           6.3\n";
     printf  "DESCRIPTION:     Stellar/Planetary Parameters Additions and Updates\n";
     print   "FILETYPE:        edm\n";
     printf ("FILENAME:        %s\n", $filename);
@@ -246,7 +246,7 @@ sub make_edm {
 
     # Step 3e of 3: Print header information to file 
     print  $fh  "USER:            raymond\n";
-    print  $fh  "BUILD:           6.2\n";
+    print  $fh  "BUILD:           6.3\n";
     printf $fh  "DESCRIPTION:     Stellar/Planetary Parameters Additions and Updates\n";
     print  $fh  "FILETYPE:        edm\n";
     printf $fh ("FILENAME:        %s\n", $filename);
@@ -257,8 +257,8 @@ sub make_edm {
 
 
     # Step 3g of 3: Now output all the planet parameters 
-    print "EDMT|planet|$planetname|update|";
-    print $fh "EDMT|planet|$planetname|update|";
+    print "EDMT|planet|$planetname|add|";
+    print $fh "EDMT|planet|$planetname|add|";
     while ( my ($key, $value) = each(%hash) ) {
         print "$key $value|";
         print $fh "$key $value|";
