@@ -285,8 +285,8 @@ sub make_edm {
 
 
     # Step 3g of 3: Now output all the planet parameters 
-    print     "EDMT|planet|$planetname|add|";
-    print $fh "EDMT|planet|$planetname|add|";
+    print     "EDMT|planet|$planetname|add|\n";
+    print $fh "EDMT|planet|$planetname|add|\n";
     foreach my $base ( @base_stem ) 
     {
       if ( $hash{$base} !~ /null/ )
@@ -303,8 +303,8 @@ sub make_edm {
         print $fh "\n";
       }
     }
-    print     "plnblend $hash{'plnblend'} | plnrefid $hash{'plnrefid'} |";
-    print $fh "plnblend $hash{'plnblend'} | plnrefid $hash{'plnrefid'} |";
+    print     "plntsystemref $hash{'plntsystemref'} | plnorbmethod $hash{'plnorbmethod'} | plnblend $hash{'plnblend'} | plnrefid $hash{'plnrefid'} |";
+    print $fh "plntsystemref $hash{'plntsystemref'} | plnorbmethod $hash{'plnorbmethod'} | plnblend $hash{'plnblend'} | plnrefid $hash{'plnrefid'} |";
     print     "\n"; # need to use this so the command prompt displays correctly 
     print $fh "\n"; # need to use this so the command prompt displays correctly
 
