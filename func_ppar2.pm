@@ -141,8 +141,36 @@ sub make_edm {
     $hash{plnblend} = 'null';
     $hash{plnrefid} = 'null';
 
+# This @base_stem array keeps track of all the base parameter names 
+    my @base_stem;
+    push(@base_stem, "plnorbper");
+    push(@base_stem, "plnorblper");
+    push(@base_stem, "plnorbtper");
+    push(@base_stem, "plnorbsmax");
+    push(@base_stem, "plnorbincl");
+    push(@base_stem, "plnorbeccen");
+    push(@base_stem, "plnrvamp");
+    push(@base_stem, "plnmsinij");
+    push(@base_stem, "plnmsinie");
+    push(@base_stem, "plnmassj");
+    push(@base_stem, "plnmasse");
+    push(@base_stem, "plnradj");
+    push(@base_stem, "plnrade");
+    push(@base_stem, "plndens");
+    push(@base_stem, "plneqt");
+    push(@base_stem, "plntrandep");
+    push(@base_stem, "plntrandurd");
+    push(@base_stem, "plntrandurh");
+    push(@base_stem, "plntranmid");
+    push(@base_stem, "plnimppar");
+    push(@base_stem, "plnratdor");
+    push(@base_stem, "plnratror");
+    push(@base_stem, "plninsol");
 
-
+    my @tertiary;
+    push(@tertiary, "err1");
+    push(@tertiary, "err2");
+    push(@tertiary, "lim");
 
 
     # Step 2b of 3: Build a planet name (also using a space character) 
@@ -257,12 +285,26 @@ sub make_edm {
 
 
     # Step 3g of 3: Now output all the planet parameters 
-    print "EDMT|planet|$planetname|add|";
+    print     "EDMT|planet|$planetname|add|";
     print $fh "EDMT|planet|$planetname|add|";
-    while ( my ($key, $value) = each(%hash) ) {
-        print "$key $value|";
-        print $fh "$key $value|";
+    foreach my $base ( @base_stem ) 
+    {
+      if ( $hash{$base} !~ /null/ )
+      {
+        print     "$base $hash{$base} | ";
+        print $fh "$base $hash{$base} | ";
+        foreach my $append (@tertiary)
+        {
+          my $fullname = "$base"."$append";
+          print     "$fullname $hash{$fullname} | ";
+          print $fh "$fullname $hash{$fullname} | ";
+        }
+        print     "\n";
+        print $fh "\n";
+      }
     }
+    print     "plnblend $hash{'plnblend'} | plnrefid $hash{'plnrefid'} |";
+    print $fh "plnblend $hash{'plnblend'} | plnrefid $hash{'plnrefid'} |";
     print     "\n"; # need to use this so the command prompt displays correctly 
     print $fh "\n"; # need to use this so the command prompt displays correctly
 
