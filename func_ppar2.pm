@@ -285,26 +285,29 @@ sub make_edm {
 
 
     # Step 3g of 3: Now output all the planet parameters 
-    print     "EDMT|planet|$planetname|add|\n";
-    print $fh "EDMT|planet|$planetname|add|\n";
+    print     "EDMT | planet | $planetname | add | plnletter $hash{'plnletter'} |";
+    print $fh "EDMT | planet | $planetname | add | plnletter $hash{'plnletter'} |";
+    print     "\\\n";
+    print $fh "\\\n";
+
     foreach my $base ( @base_stem ) 
     {
       if ( $hash{$base} !~ /null/ )
       {
-        print     "$base $hash{$base} | ";
-        print $fh "$base $hash{$base} | ";
+        print     "$base $hash{$base} |";
+        print $fh "$base $hash{$base} |";
         foreach my $append (@tertiary)
         {
           my $fullname = "$base"."$append";
-          print     "$fullname $hash{$fullname} | ";
-          print $fh "$fullname $hash{$fullname} | ";
+          print     " $fullname $hash{$fullname} |";
+          print $fh " $fullname $hash{$fullname} |";
         }
-        print     "\n";
-        print $fh "\n";
+        print     "\\\n";
+        print $fh "\\\n";
       }
     }
-    print     "plntsystemref $hash{'plntsystemref'} | plnorbmethod $hash{'plnorbmethod'} | plnblend $hash{'plnblend'} | plnrefid $hash{'plnrefid'} |";
-    print $fh "plntsystemref $hash{'plntsystemref'} | plnorbmethod $hash{'plnorbmethod'} | plnblend $hash{'plnblend'} | plnrefid $hash{'plnrefid'} |";
+    print     "plntsystemref $hash{'plntsystemref'} | plnorbmethod $hash{'plnorbmethod'} | plnblend $hash{'plnblend'} | plnrefid $hash{'plnrefid'} ";
+    print $fh "plntsystemref $hash{'plntsystemref'} | plnorbmethod $hash{'plnorbmethod'} | plnblend $hash{'plnblend'} | plnrefid $hash{'plnrefid'} ";
     print     "\n"; # need to use this so the command prompt displays correctly 
     print $fh "\n"; # need to use this so the command prompt displays correctly
 
