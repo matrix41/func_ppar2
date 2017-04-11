@@ -18,6 +18,7 @@ sub make_edm {
     my $key;
     my $inputvalue;
     my $value;
+    my $space = "";
 
     # Step 0 of 3: Get passed arguments (the hash) from calling program here.  
     # The hash will be passed by value.  
@@ -302,8 +303,8 @@ sub make_edm {
         {
             my $fullname = "$base"."$append";
             $space .= (" " x ( 25 - length("$fullname") - length($hash{$fullname}) ) ); 
-            print     "$fullname $space $hash{$fullname} |";
-            print $fh "$fullname $space $hash{$fullname} |";
+            print     " $fullname $space $hash{$fullname} |";
+            print $fh " $fullname $space $hash{$fullname} |";
             $space = "";
         }
         print     "\\\n";
@@ -317,18 +318,18 @@ sub make_edm {
     $space = "";
 
     $space .= (" " x ( 25 - length("plnorbmethod") - length($hash{'plnorbmethod'}) ) ); 
-    print     "plnorbmethod $space $hash{'plnorbmethod'} |";
-    print $fh "plnorbmethod $space $hash{'plnorbmethod'} |";
+    print     " plnorbmethod $space $hash{'plnorbmethod'} |";
+    print $fh " plnorbmethod $space $hash{'plnorbmethod'} |";
     $space = "";
 
     $space .= (" " x ( 25 - length("plnblend") - length($hash{'plnblend'}) ) ); 
-    print     "plnblend $space $hash{'plnblend'} |";
-    print $fh "plnblend $space $hash{'plnblend'} |";
+    print     " plnblend $space $hash{'plnblend'} |";
+    print $fh " plnblend $space $hash{'plnblend'} |";
     $space = "";
 
     $space .= (" " x ( 25 - length("plnrefid") - length($hash{'plnrefid'}) ) ); 
-    print     "plnrefid $space $hash{'plnrefid'} |";
-    print $fh "plnrefid $space $hash{'plnrefid'} |";
+    print     " plnrefid $space $hash{'plnrefid'} |";
+    print $fh " plnrefid $space $hash{'plnrefid'} |";
     $space = "";
 
     print     "\n"; # need to use this so the command prompt displays correctly 
